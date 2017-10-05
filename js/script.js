@@ -29,20 +29,44 @@ class Api {
     }
 }
 
+const createUl = ()=>document.createElement("ul")
+const createLi = ()=>document.createElement("li")
+
 const api = new Api();
 
 
 document.querySelector("#get_data").addEventListener("click",()=>{
-    console.log("click get_data");
+    const resultDiv = document.querySelector("#result");
+    resultDiv.innerHTML = "";
     api.getPosts()
-    .then(data=>{
-    console.log(data)
+    .then(data=>{   
+       const ul = createUl()
+       data.map(el=>{
+            const li=createLi()
+            li.textContent = el.title
+            ul.appendChild(li)
+        })
+        resultDiv.appendChild(ul)
+       // document.querySelector("#result").appendChild(ul)
+    })
+       
 });
 
-
+document.querySelector("#get_data1").addEventListener("click",async ()=>{
+    const resultDiv = document.querySelector("#result")
+    resultDiv.innerHTML = "";
+    const data = await api.getPosts()
+    const ul = createUl()
+    data.map(el=>{
+            const li = createLi()
+            li.textContent = el.title
+            ul.appendChild(li)
+        })
+        resultDiv.appendChild(ul)
+       // document.querySelector("#result").appendChild(ul)
+       
 });
 
-
-document.querySelector("#send").addEventListener("click",()=>{
-    console.log("click send");
-});
+//document.querySelector("#send").addEventListener("click",()=>{
+//    console.log("click send");
+//});
